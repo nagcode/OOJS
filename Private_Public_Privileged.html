@@ -1,0 +1,43 @@
+<html>
+<head>
+<script type="text/javascript" charset="utf-8">
+var MyClass = function() {
+	//Private Member Variable
+	var mySecret = "hush";
+	
+	//Private Method
+	var privateMethod = function() {
+		alert('Hush !! This is coming from private');
+	};
+
+	//Public Member Variable
+	this.myPublic = 'Public';
+	
+	//Privileged Method
+	this.privilegedMethod = function() {
+		//This method can access private and public member variables
+		alert('Privileged Method: I know the Secret is '+ mySecret);
+		alert('Privileged Method: I know the Public Member is '+ this.myPublic);
+		
+		//This can also call private methods
+	    privateMethod();
+	};
+	
+};
+
+//Attach a public method using 'prototype'
+MyClass.prototype.publicMethod = function() {
+	//This method can access only public member variables
+	alert('Pubic Method: I know only about Public Member '+ this.myPublic)
+};
+
+var myObj = new MyClass();
+alert(myObj.mySecret);
+myObj.privilegedMethod();
+myObj.publicMethod();
+
+</script>
+</head>
+<body>
+</body>
+</html>

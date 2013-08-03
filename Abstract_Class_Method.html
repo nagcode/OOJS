@@ -1,0 +1,74 @@
+<html>
+<head>
+<script type="text/javascript" charset="utf-8">
+var Animal = function () {
+	alert('You cannot instantiate Animal');
+	throw('You cannot instantiate Animal');
+};
+
+//Initialization logic is defined in a seperate method
+Animal.prototype.init = function(name) {
+	this.name = name;
+}
+Animal.prototype.eat = function() {
+	     alert('My Name is '+ this.name+'. I am a '+this.type+' and I eat '+this.food);
+};
+
+Animal.prototype.say = function() {alert('Here');};
+	     
+
+
+var Cat = function(name) {
+	//Call init() method in super class as the constructor
+	Animal.prototype.init.apply(this,arguments);
+	this.type = 'Cat';
+	this.food = 'Rat';
+	alert('Cat constructor');
+};
+
+Cat.prototype = Object.create(Animal.prototype);
+
+Cat.prototype.say = function() {
+	alert('I am '+this.name+'. I am a Cat and I say Meow');
+}
+
+var Dog = function(name) {
+	//Call init() method in super class as the constructor
+	Animal.prototype.init.apply(this,arguments);
+	this.type = 'Dog';
+	this.sound = 'Woof Woof';
+	this.food = 'Meat';
+	alert('Dog constructor');
+};
+Dog.prototype = Object.create(Animal.prototype);
+
+Dog.prototype.say = function() {
+	alert('I am '+this.name+'. I am a Dog and I say Woof Woof');
+}
+
+
+
+var myCat = new Cat('Pinky');
+myCat.eat();
+myCat.say();
+
+var myDog = new Dog('Doug');
+myDog.eat();
+myDog.say();
+
+alert('myCat instanceof Cat : '+ (myCat instanceof Cat));
+alert('myCat instanceof Animal : '+ (myCat instanceof Animal));
+
+alert('myDog instanceof Dog : '+ (myDog instanceof Dog));
+alert('myDog instanceof Animal : '+ (myDog instanceof Animal));
+var unKnown;
+try {
+  unKnown = new Animal('WhoAmI');
+} catch (err) {};
+
+alert('unKnown instanceof Animal : '+ (unKnown instanceof Animal));
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<html>
+<head>
+<script type="text/javascript" charset="utf-8">
+	var SuperClass = function(name) {
+		this.name = name;
+		this.type = 'SuperClass';
+		alert('Super constructor');
+		
+	};
+	SuperClass.prototype.commonMethod = function() {
+		alert(this.type + ' says ' + this.name);
+	};
+	
+	var SubClass = function (name) {
+		//Call the super class constructor as the first thing
+		SuperClass.call(this, name);
+		//Subclass specific constructor logic
+		this.type = 'SubClass';
+	}
+
+	SubClass.prototype = Object.create(SuperClass.prototype);
+	
+	var superObj = new SuperClass('Test');
+	superObj.commonMethod();
+
+	var childObj = new SubClass('Test');
+	childObj.commonMethod();
+	
+	
+	//Check the types of objects using instanceof 
+	alert('Is superObj instanceof SuperClass : '+(superObj instanceof SuperClass));
+	
+	alert('Is childObj instanceof SubClass : '+(childObj instanceof SubClass));
+	
+	alert('Is childObj instanceof SuperClass : '+(childObj instanceof SuperClass));
+	
+</script>
+</head>
+<body>
+</body>
+</html>
